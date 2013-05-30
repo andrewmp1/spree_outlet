@@ -1,0 +1,14 @@
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container span12">
+      <a class="brand" href="#"><h1> Spree Outlet </h1></a>
+      <ul class="nav">
+      {{#if App.currentUser}}
+        Welcome back, {{App.currentUser.email}}
+      {{else}}
+        <li>{{#linkTo "login"}} Log In {{/linkTo}}</li>
+      {{/if}}
+      </ul>
+    </div>
+  </div>
+</div>

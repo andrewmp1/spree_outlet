@@ -1,0 +1,28 @@
+<hr>
+<div class="row">
+  <div class="span3">
+    <ul>
+      <h5> Shop By Categories </h5>
+
+    </ul>
+
+
+    <ul>
+      <h5> Shop By Brand </h5>
+
+    </ul>
+  </div>
+  <div class="span9">
+    <ul class="thumbnails">
+      {{#each product in content}}
+        <li class="span3">
+          <p>{{product.description}}</p>
+          <img {{bindAttr data-src="product.primaryImage"}}>
+          {{#linkTo "product" product}} {{product.name}} {{/linkTo}}
+          <hr>
+          {{product.price}}
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+</div>

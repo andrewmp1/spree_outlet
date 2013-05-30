@@ -1,0 +1,6 @@
+= SpreeOutlet
+
+An emberjs ecommerce store wrapped in a rails engine that can be side mounted on an existing spree store and operates
+directly with the spree api.
+
+This project rocks and uses MIT-LICENSE.

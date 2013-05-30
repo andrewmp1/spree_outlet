@@ -1,0 +1,12 @@
+<script>
+  var user, Spree = Spree || {};
+  <% if @current_user %>
+  Spree.api_key = "<%= @current_user.spree_api_key %>";
+  // FIXME. SHOULD BE API FOR THIS.
+  user = {
+    user_id: "<%= @current_user.id %>",
+    api_key: "<%= @current_user.spree_api_key %>",
+    email: "<%= @current_user.email %>"
+  }
+  <% end %>
+</script>
