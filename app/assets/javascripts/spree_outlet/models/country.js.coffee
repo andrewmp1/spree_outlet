@@ -11,7 +11,6 @@ App.Country = Ember.Model.extend(
 
 App.Country.reopenClass(
   url: "/api/countries"
-  rootKey: "country"
+  rootKey: null
   collectionKey: "countries"
-  adapter: Ember.RESTAdapter.create()
 )

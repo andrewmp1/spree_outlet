@@ -21,8 +21,6 @@ window.shipAddress =
   "country_id": 1
 
 App.Order = Ember.Model.extend(
-  _payments: null,
-  _lineItems: null,
   id: attr()
   state: attr()
   number: attr()
@@ -40,20 +38,24 @@ App.Order = Ember.Model.extend(
   special_instructions: attr()
 
   payments: Ember.computed ->
-    payments = @get('_payments')
+    payments = @get('data.payments')
     if payments
-      payments
+      payments.map( (item) ->
+        App.Payment.create(item)
+      )
     else
       payments
-  .property('_payments'),
+  .property('data.payments'),
 
   lineItems: Ember.computed ->
-    lineItems = @get('_lineItems')
+    lineItems = @get('data.lineItems')
     if lineItems
-      lineItems
+      lineItems.map( (item) ->
+        App.LineItem.create(item)
+      )
     else
       lineItems
-  .property('_lineItems'),
+  .property('data.lineItems'),
 
   addItem: (variantId, quantity) ->
     settings =
@@ -70,7 +72,6 @@ App.Order = Ember.Model.extend(
 
 App.Order.reopenClass(
   url: "/api/orders"
-  rootKey: "order"
+  rootKey: null
   collectionKey: "orders"
-  adapter: Ember.RESTAdapter.create()
 )

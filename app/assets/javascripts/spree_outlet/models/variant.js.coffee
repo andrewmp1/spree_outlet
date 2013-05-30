@@ -21,7 +21,7 @@ App.Variant = Ember.Model.extend(
 
 App.Variant.reopenClass(
   url: "/api/variants"
-  rootKey: "variant"
+  rootKey: null
   collectionKey: "variants"
   adapter: Ember.RESTAdapter.create()
 )

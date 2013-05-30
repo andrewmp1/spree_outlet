@@ -5,6 +5,7 @@
   <button {{action addToCart}} class="btn large primary"> Add to Cart </button>
   {{#linkTo "products"}}<button class="btn small"> Back </button>{{/linkTo}}
   <ul>
+    <h5> Variants MasterId: {{masterVariant.id}}</h5>
   {{#each variant in variants}}
     {{variant.id}}
   {{/each}}

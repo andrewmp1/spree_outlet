@@ -5,7 +5,7 @@ App.Address = Ember.Model.extend(
 )
 
 App.Address.reopenClass(
-  rootKey: "address"
+  rootKey: null
   collectionKey: "address"
   url: "/api/address"
   adapter: Ember.RESTAdapter.create()

@@ -1,20 +1,20 @@
 <hr>
 <div class="row">
   <div class="span3">
-    <ul>
-      <h5> Shop By Categories </h5>
-
-    </ul>
-
-
-    <ul>
-      <h5> Shop By Brand </h5>
-
-    </ul>
+    {{#if controller.taxons}}
+      {{#each taxonRoot in controller.taxons}}
+        <ul>
+        <h5> Shop By {{taxonRoot.name}} </h5>
+          {{#each taxon in taxonRoot.taxons}}
+          <li> <a {{action filterProducts taxon}}> {{taxon.name}}</a></li>
+          {{/each}}
+         </ul>
+      {{/each}}
+    {{/if}}
   </div>
   <div class="span9">
     <ul class="thumbnails">
-      {{#each product in content}}
+      {{#each product in filtered}}
         <li class="span3">
           <p>{{product.description}}</p>
           <img {{bindAttr data-src="product.primaryImage"}}>
@@ -22,6 +22,8 @@
           <hr>
           {{product.price}}
         </li>
+      {{else}}
+        "No Match". <a {{action clearFilter}}> Clear Filter </a>
       {{/each}}
     </ul>
   </div>

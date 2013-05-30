@@ -3,12 +3,32 @@ attr = Ember.attr
 App.Taxonomy = Ember.Model.extend(
   id: attr()
   name: attr()
-  root: attr()
+  parent_id: attr()
+  permalink: attr()
+  pretty_name: attr()
+  taxonomy_id: attr()
+  root: Ember.computed ->
+    dataRoot = @get('data.root')
+    if dataRoot
+      @.constructor.create(dataRoot)
+    else
+      null
+  .property('data.root')
+  taxons: Ember.computed ->
+    taxons = @get('data.taxons')
+    klass = @
+    taxons = if taxons then taxons else @get('data.root.taxons')
+    if !Ember.isEmpty(taxons)
+      taxons.map( (item) ->
+        klass.constructor.create(item)
+      )
+    else
+      []
+  .property('data.taxons.@each')
 )
 
 App.Taxonomy.reopenClass(
   url: "/api/taxonomies"
-  rootKey: "taxonomy"
+  rootKey: null
   collectionKey: "taxonomies"
-  adapter: Ember.RESTAdapter.create()
 )

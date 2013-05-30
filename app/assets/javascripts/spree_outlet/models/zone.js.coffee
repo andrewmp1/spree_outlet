@@ -6,7 +6,7 @@ App.Zone = Ember.Model.extend(
 
 App.Zone.reopenClass(
   url: "/api/zones"
-  rootKey: "zone"
+  rootKey: null
   collectionKey: "zones"
   adapter: Ember.RESTAdapter.create()
 )

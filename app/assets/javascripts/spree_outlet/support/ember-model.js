@@ -401,7 +401,6 @@ Ember.Model.reopenClass({
     var record = this.cachedRecordForId(id),
         adapter = get(this, 'adapter');
 
-    console.log("ISLOADED: " + get(record, 'isLoaded'))
     if (!get(record, 'isLoaded')) {
       if (adapter.findMany) {
         if (this._currentBatchIds) {
@@ -410,7 +409,6 @@ Ember.Model.reopenClass({
           this._currentBatchIds = [id];
           this._currentBatchRecordArrays = [];
         }
-        console.log("SCHEDULING BATCH " + this._currentBatchIds)
         Ember.run.scheduleOnce('data', this, this._executeBatch);
       } else {
         adapter.find(record, id);
@@ -655,7 +653,6 @@ Ember.RESTAdapter = Ember.Adapter.extend({
     if (params) {
       settings.data = params;
     }
-    console.log("SETTINGS: " + JSON.stringify(settings));
     if (params && method !== "GET") {
       settings.contentType = "application/json; charset=utf-8";
       settings.data = JSON.stringify(params);

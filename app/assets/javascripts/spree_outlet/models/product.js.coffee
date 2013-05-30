@@ -9,37 +9,35 @@ App.Product = Ember.Model.extend(
   permalink: attr()
   meta_escription: attr()
   meta_keywords: attr()
-  taxon_ids: attr()
   option_types: attr()
-  product_properties: attr()
-  primaryImage: Ember.computed ->
-    images = @get('images')
-    if !images
-      return
-    else
-      images.objectAt(0).get('attachment_url')
-
-  variants: Ember.computed ->
-    id = @get('id')
-    model = @
-    records = Ember.A()
-    if id
-      records = App.Variant.find(product_id: @get('id'))
-    else
-      @then(->
-        id = model.get('id')
-        App.Variant.find(product_id: @get('id'))
-      ).then( (variants) ->
-        variants.forEach( (v) ->
-          records.pushObject(v)
-        )
+  taxons: Ember.computed ->
+    data = @get('data.taxon_ids')
+    if !Ember.isEmpty(data)
+      data.map( (item) ->
+        App.Taxon.find(item)
       )
-    records
-  .property('id', 'isLoaded')
+  .property('data.taxon_ids')
+  properties: Ember.computed ->
+    data = @get('data.product_properties')
+    if !Ember.isEmpty(data)
+      data.map( (item) ->
+        App.Variant.create(item)
+      )
+  .property('data.product_properties')
+  variants: Ember.computed ->
+    data = @get('data.variants')
+    if !Ember.isEmpty(data)
+      data.map( (item) ->
+        App.Variant.create(item)
+      )
+  .property('data.variants')
+  masterVariant: Ember.computed ->
+    @get('variants').findProperty('is_master', true)
+  .property('variants.@each')
 )
 
 App.Product.reopenClass(
   url: "/api/products"
-  rootKey: "product"
+  rootKey: null
   collectionKey: "products"
 )
