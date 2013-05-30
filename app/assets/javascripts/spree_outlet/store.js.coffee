@@ -21,15 +21,34 @@ App.ajax = (url, params, method) ->
 
   Ember.$.ajax(settings);
 
-App.Store = DS.Store.extend(
-  revision: 12
-)
-removeMeta = 
+App.Store = DS.Store.extend()
+
 DS.RESTAdapter.configure("plurals",
   product_properties: "product_properties"
 )
+
+DS.RESTAdapter.configure("App.Variant",
+  sideloadAs: "variants"
+)
+
+DS.RESTAdapter.configure("App.ProductProperty"
+  sideloadAs: "product_properties"
+)
+
 DS.RESTAdapter.reopen(
   namespace: "api"
+  find: (store, type, id) ->
+    root = @rootForType(type)
+    adapter = @
+    @ajax(@buildURL(root, id), "GET").then (json) ->
+      if type == App.Order
+        id = json.number
+      else
+        id = json.id
+      rootJson = {}
+      rootJson[root] = json
+      Ember.run(adapter, "didFindRecord", store, type, rootJson, json.id)
+
   didFindAll: (store, type, payload, recordArray) ->
     loader = DS.loaderFor(store)
     serializer = @get('serializer')
@@ -62,6 +81,7 @@ DS.RESTAdapter.reopen(
 
     @get("serializer").extractMany(loader, payload, type)
 )
+
 DS.RESTAdapter.map("App.Order",
   primaryKey: 'number'
 )

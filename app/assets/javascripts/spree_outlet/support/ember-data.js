@@ -7661,7 +7661,6 @@ DS.Adapter = Ember.Object.extend(DS._Mappable, {
   */
   didFindRecord: function(store, type, payload, id) {
     var loader = DS.loaderFor(store);
-
     loader.load = function(type, data, prematerialized) {
       prematerialized = prematerialized || {};
       prematerialized.id = id;
