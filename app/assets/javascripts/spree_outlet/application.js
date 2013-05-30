@@ -16,5 +16,5 @@
 //= rqeuire spree_outlet/support/jquery.payment
 //= require spree_outlet/support/bootstrap.js
 //= require spree_outlet/support/ember
-//= require spree_outlet/support/ember-model
+//= require spree_outlet/support/ember-data
 //= require spree_outlet/app_config

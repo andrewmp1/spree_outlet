@@ -1,17 +1,7 @@
-attr = Ember.attr
-
-App.Country = Ember.Model.extend(
-  id: attr()
-  iso_name: attr()
-  iso: attr()
-  name: attr()
-  numcode: attr()
-  states: attr()
-)
-
-App.Country.reopenClass(
-  url: "/api/countries"
-  rootKey: "country"
-  collectionKey: "countries"
-  adapter: Ember.RESTAdapter.create()
+App.Country = DS.Model.extend(
+  isoName: DS.attr('string')
+  iso: DS.attr('string')
+  name: DS.attr('string')
+  numcode: DS.attr('string')
+  states: DS.attr('string')
 )

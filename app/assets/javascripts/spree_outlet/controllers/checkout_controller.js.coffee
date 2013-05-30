@@ -1,5 +1,5 @@
 App.CheckoutController = Ember.ObjectController.extend(
-  model: App.Order.create()
+  model: null
   steps: ['cart', 'delivery', 'payment', 'confirm']
   data: null
   baseURL: Ember.computed ->
@@ -40,10 +40,10 @@ App.CheckoutController = Ember.ObjectController.extend(
     promise
 )
 
-window.checkoutTest = ->
-  App.set('token', Spree.api_key)
-  controller = App.__container__.lookup('controller:checkout')
-  order = App.Order.create()
-  order.save()
-  controller.set('content', order)
-  controller
+# window.checkoutTest = ->
+#   App.set('token', Spree.api_key)
+#   controller = App.__container__.lookup('controller:checkout')
+#   order = App.Order.create()
+#   order.save()
+#   controller.set('content', order)
+#   controller

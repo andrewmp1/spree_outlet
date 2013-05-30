@@ -1,5 +1,3 @@
-attr = Ember.attr
-
 window.billAddress =
   "firstname": "John"
   "lastname": "Doe"
@@ -20,40 +18,24 @@ window.shipAddress =
   "state_id": 1
   "country_id": 1
 
-App.Order = Ember.Model.extend(
-  _payments: null,
-  _lineItems: null,
-  id: attr()
-  state: attr()
-  number: attr()
-  item_total: attr()
-  total: attr()
-  adjustment_total: attr()
-  user_id: attr()
-  created_at: attr()
-  updated_at: attr()
-  completed_at: attr()
-  payment_total: attr()
-  shipment_state: attr()
-  payment_state: attr()
-  email: attr()
-  special_instructions: attr()
-
-  payments: Ember.computed ->
-    payments = @get('_payments')
-    if payments
-      payments
-    else
-      payments
-  .property('_payments'),
-
-  lineItems: Ember.computed ->
-    lineItems = @get('_lineItems')
-    if lineItems
-      lineItems
-    else
-      lineItems
-  .property('_lineItems'),
+App.Order = DS.Model.extend(
+  id: DS.attr('string')
+  number: DS.attr('string')
+  state: DS.attr('string')
+  item_total: DS.attr('string')
+  total: DS.attr('string')
+  adjustment_total: DS.attr('string')
+  user_id: DS.attr('string')
+  created_at: DS.attr('string')
+  updated_at: DS.attr('string')
+  completed_at: DS.attr('string')
+  payment_total: DS.attr('string')
+  shipment_state: DS.attr('string')
+  payment_state: DS.attr('string')
+  email: DS.attr('string')
+  special_instructions: DS.attr('string')
+  lineItems: DS.hasMany('App.LineItem')
+  payments: DS.hasMany('App.Payment')
 
   addItem: (variantId, quantity) ->
     settings =
@@ -66,11 +48,4 @@ App.Order = Ember.Model.extend(
       url: "/api/orders/#{@get('number')}/empty"
       type: "PUT"
     Ember.$.ajax(settings)
-)
-
-App.Order.reopenClass(
-  url: "/api/orders"
-  rootKey: "order"
-  collectionKey: "orders"
-  adapter: Ember.RESTAdapter.create()
 )
