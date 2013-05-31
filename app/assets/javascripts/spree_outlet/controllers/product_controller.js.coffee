@@ -1,8 +1,10 @@
 App.ProductController = Ember.ObjectController.extend(
-  needs: ['checkout']
+  needs: ['cart']
   quantity: 1
+  variant: Ember.computed ->
+    @get('model.masterVariant')
+  .property('model')
   addToCart: ->
     console.log("ADDING TO CART")
-    @get('controllers.checkout.model').addItem(item.get('id'), quantity)
-    # @get('controllers.checkout').addToCart(@get('model'), @get('quantity'))
+    @get('controllers.cart').addItem(@get('variant.id'), @get('quantity') )
 )

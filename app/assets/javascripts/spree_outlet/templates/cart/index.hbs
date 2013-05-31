@@ -1,0 +1,21 @@
+<h3> Shopping Cart </h3>
+{{#if model.lineItems}}
+  <table class="table table-striped">
+  <tr> Item </tr>
+  <tr> Price </tr>
+  <tr> Quantity </tr>
+  <tr> Total </tr>
+  {{#each item in model.lineItems}}
+    <td> {{item.variant.name}} </td>
+    <td> {{item.price}} </td>
+    <td> {{item.quantity}} </td>
+    <td> {{item.total}} </td>
+  {{/each}}
+  </table>
+  <hr>
+  <button {{action emptyCart}} class="btn"> Empty Cart </button> or {{#linkTo "products"}}<button class="btn"> Continue Shopping </button> {{/linkTo}} <br />
+  {{input value=couponCode}} <button {{action update}} class="btn"> Update </button> {{#linkTo "checkout"}}<button class="btn"> Checkout </button> {{/linkTo}}
+  <hr>
+{{else}}
+  You have nothing in your cart.  Add some cool stuff. {{#linkTo "products"}}<button class="btn"> Continue Shopping </button> {{/linkTo}} <br />
+{{/if}}
