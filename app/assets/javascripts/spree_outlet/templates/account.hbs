@@ -1,0 +1,30 @@
+<h3> My Account </h3>
+
+EMAIL: {{email}}
+
+<h5> My Orders </h5>
+
+
+{{#if orders}}
+  <table class="">
+    <th>
+      <th>ORDER</th>
+      <th>ORDER DATE</th>
+      <th>STATUS</th>
+      <th>PAYMENT STATE</th>
+      <th>SHIPMENT STATE</th>
+      <th>TOTAL</th>
+    <tr>
+    {{#each order in orders}}
+    <tr>
+      <td>{{order.number}}</td>
+      <td>{{order.order_date}}</td>
+      <td>{{order.payment_state}}</td>
+      <td>{{order.shipment_state}}</td>
+      <td>{{order.total}}</td>
+    <tr>
+    {{/each}}
+  </table>
+{{else}}
+  You have no orders.
+{{/if}}

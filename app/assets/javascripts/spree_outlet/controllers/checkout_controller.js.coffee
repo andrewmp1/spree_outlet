@@ -1,20 +1,20 @@
 App.CheckoutController = Ember.Controller.extend(
   needs: ['cart']
-  modelBinding: 'controllers.cart.model'
-  steps: ['registration', 'cart', 'delivery', 'payment', 'confirm']
+  orderBinding: 'controllers.cart.model'
+  steps: ['checkout.address', 'checkout.delivery', 'checkout.payment', 'checkout.confirm']
   data: null
   error: null # String response for errors. Use for flash message
   errors: null # array of error messages, validations, etc.
   baseURL: Ember.computed ->
-    "/api/checkouts/#{@get('model.number')}?"
-  .property('model.number')
+    "/api/checkouts/#{@get('order.number')}"
+  .property('order.number')
 
   addItem: (variantId, quantity) ->
     order = @get('model')
     if order.get('isNew')
       # Create w/ line item.
     else
-      url = "/api/orders/#{@get('model.number')}/line_items?line_item[variant_id]=#{variantId}&line_item[quantity]=#{quantity}"
+      url = "/api/orders/#{@get('order.number')}/line_items?line_item[variant_id]=#{variantId}&line_item[quantity]=#{quantity}"
       @sendData(url, null, "POST")
 
   address: (billAddress, shipAddress) ->
@@ -39,9 +39,8 @@ App.CheckoutController = Ember.Controller.extend(
     promise = App.ajax(url, params, type)
     promise.then((data) ->
       controller.set('data', data)
-    ).then(null,
-      controller.set('error', data.error)
-      controller.set('errors', data.errors)
+    ).then(null, (jqXHR) ->
+      controller.set('error', jqXHR.responseText)
     )
     promise
 )

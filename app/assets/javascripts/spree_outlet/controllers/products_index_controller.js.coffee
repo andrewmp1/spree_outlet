@@ -1,5 +1,7 @@
 App.ProductsIndexController = Ember.ArrayController.extend(
   # Simple filter by taxon id for now
+  # Api request to filter by taxon:
+  # /api/products.json?q[taxons_id_eq]=4
   filter: null
   filtered: Ember.computed ->
     filter= @get('filter')

@@ -1,9 +1,13 @@
-<h3> Billing Address </h3>
-
-{{#with billAddress}}
+<h5> Ship Address </h5>
+<div class="bill-address row">
+{{#with model.billAddress}}
   {{template "address"}}
 {{/with}}
+</div>
 
-{{#with shipAddress}}
+<h5> Bill Address </h5>
+<div class="ship-address row">
+{{#with model.shipAddress}}
   {{template "address"}}
 {{/with}}
+</div>

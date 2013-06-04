@@ -1,0 +1,12 @@
+<h3> Checkout </h3>
+<ol class="inline">
+  <li>{{#linkTo "checkout.address"}}ADDRESS{{/linkTo}} </li>
+  <li>{{#linkTo "checkout.delivery"}}DELIVERY{{/linkTo}} </li>
+  <li>{{#linkTo "checkout.payment"}}PAYMENT{{/linkTo}} </li>
+  <li>{{#linkTo "checkout.confirm"}}COMPLETE{{/linkTo}} </li>
+</ol>
+<div class="checkout">
+  {{outlet}}
+</div>
+
+<button class="btn primary" {{action update}}> Save & Continue </button>

@@ -4,7 +4,8 @@
       <a class="brand" href="#"><h1> Spree Outlet </h1></a>
       <ul class="nav">
       {{#if App.currentUser}}
-        Welcome back, {{App.currentUser.email}}
+        Welcome, {{App.currentUser.email}} {{#linkTo "account"}} Account {{/linkTo}} | 
+        {{#linkTo "logout"}} Log out {{/linkTo}}
       {{else}}
         <li>{{#linkTo "login"}} Log In {{/linkTo}}</li>
       {{/if}}

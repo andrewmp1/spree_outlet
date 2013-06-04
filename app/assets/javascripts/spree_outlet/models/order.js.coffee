@@ -36,6 +36,7 @@ App.Order = Ember.Model.extend(
   shipment_state: attr()
   payment_state: attr()
   special_instructions: attr()
+  token: attr()
 
   payments: Ember.computed ->
     payments = @get('data.payments')
@@ -63,7 +64,17 @@ App.Order = Ember.Model.extend(
       )
     else
       lineItems
-  .property('data.lineItems'),
+  .property('data.line_items'),
+
+  billAddress: Ember.computed ->
+    #TODO
+    App.Address.create(billAddress)
+  .property('data.bill_address')
+
+  shipAddress: Ember.computed ->
+    #TODO
+    App.Address.create(shipAddress)
+  .property('data.ship_address')
 
   adjustments: Ember.computed ->
     adjustments = @get('data.adjustments')
@@ -73,17 +84,71 @@ App.Order = Ember.Model.extend(
       )
   .property('data.adjustments')
 
+  accessToken: ->
+    App.get('token') || @get('token')
+
   addItem: (variantId, quantity) ->
+    accessToken = @accessToken()
+    controller = @
     settings =
-      url: "/api/orders/#{@get('number')}/line_items?line_item[variant_id]=#{variantId}&line_item[quantity]=#{quantity}"
-      type: "POST"
-    Ember.$.ajax(settings)
+      url: "/api/checkouts/#{@get('number')}"
+      type: "PUT"
+      data:
+        line_item:
+          variant_id: variantId
+          quantity: quantity
+    # if accessToken
+    #   settings.url = settings.url + "?token=#{accessToken}"
+    Ember.$.ajax(settings).then((data) ->
+      if data.line_items
+        controller.set('data.line_items', data.line_items)
+    )
 
   empty: ->
     settings =
       url: "/api/orders/#{@get('number')}/empty"
       type: "PUT"
     Ember.$.ajax(settings)
+
+  taxTotal: Ember.computed ->
+    adjustments = @get('adjustments')
+    if adjustments
+      adjustments.filterProperty('type', 'tax')
+  .property('adjustments')
+
+  shipTotal: Ember.computed ->
+    adjustments = @get('adjustments')
+    if adjustments
+      adjustments.filterProperty('type', 'shipping')
+  .property('adjustments')
+
+  isPaid: Ember.computed ->
+    @get('payment_state') == 'paid'
+  .property('payment_state')
+
+  name: Ember.computed ->
+    address = @get('shipAddress') || @get('billAddress')
+    if address
+      "#{address.firstname} #{address.lastname}"
+  .property('ship_address', 'bill_address')
+
+  itemCount: Ember.computed ->
+    lineItems = @get('line_items')
+    if lineItems
+      lineItems.get('length')
+  .property('lineItems')
+
+  checkoutAllowed: Ember.computed ->
+    !Ember.isEmpty(@get('lineItems'))
+  .property('lineItems')
+
+  paymentRequired: Ember.computed ->
+    parseFloat(@get('total')) > 0.0
+  .property('total')
+
+  isComplete: Ember.computed ->
+    !Ember.isEmpty(@get('completed_at'))
+  .property('completed_at')
 )
 
 App.Order.reopenClass(
@@ -93,7 +158,7 @@ App.Order.reopenClass(
   createWithItem: (variantId, quantity) ->
     record = @.create()
     settings =
-      url: "/api/orders?order[line_items][0][variant_id]=#{variantId}&order[line_items][0][quantity]=#{quantity}"
+      url: "/api/orders.json?order[line_items][0][variant_id]=#{variantId}&order[line_items][0][quantity]=#{quantity}"
       type: "POST"
     Ember.$.ajax(settings).then((json) ->
       record.load(json.id, json)

@@ -1,0 +1,11 @@
+{{#if error}}
+<div class="alert"> {{error}} </div>
+{{/if}}
+<h3> Login </h3>
+{{log controller}}
+<label> Email </label>
+{{input value=email}}
+<label> Password </label>
+{{input type=password value=password}}
+
+<button {{action login}} class="btn primary"> Log in </button> or {{#linkTo "signup"}} <button class="btn secondary"> Sign up </button> {{/linkTo}}

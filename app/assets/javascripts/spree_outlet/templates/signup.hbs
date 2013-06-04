@@ -1,0 +1,12 @@
+<h3> Sign up </h3>
+{{#if error}}
+<div class="alert"> {{error}} </div>
+{{/if}}
+<label> Email </label>
+{{input value=email}}
+<label> Password </label>
+{{input type=password value=password}}
+<label> Password Confirmation </label>
+{{input type=password value=password_confirmation}}
+
+<button {{action signup}} class="btn primary"> Create </button> or {{#linkTo 'login'}} <button class="btn secondary"> Log in </button> {{/linkTo}}

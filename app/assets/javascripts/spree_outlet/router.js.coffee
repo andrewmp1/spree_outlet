@@ -11,8 +11,17 @@ App.Router.map ->
   )
   @resource('account')
   @resource('cart')
-  @resource('checkout')
+  @resource('checkout', ->
+    @route('index')
+    @route('cart')
+    @route('address')
+    @route('delivery')
+    @route('payment')
+    @route('confirm')
+  )
   @route('login')
+  @route('signup')
+  @route('logout')
 
   # 404, Catch all unmatched routes
   @route('notFound', path: '/*path')
