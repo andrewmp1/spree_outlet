@@ -23,6 +23,9 @@ adapter. I didn't go completely custom on ember-model. I used ebryn's ember-mode
 Create a new rails application and setup Spree (See spreecommerce documentation)
 
 Add spree_outlet to your Gemfile
+Add spree_api_extend to your Gemfile.
+
+gem 'spree_api_extend', git: "git@github.com:Andrewmp1/spree_api_extend.git"
 
 Include this in your routes.rb file to mount the spree_outlet store before spree
 
@@ -36,7 +39,7 @@ Example:
 $gem install rails -v 3.2.13
 $gem install spree
 $rails _3.2.13_ new my_store
-Add spree & spree_auth_devise & spree_outlet to Gemfile (pull from git repos)
+Add spree & spree_auth_devise & spree_outlet & spree_api_extend to Gemfile (pull from git repos)
 $cd my_store && bundle
 $ rails g spree:install --migrate=false --sample=false --seed=false
 $ bundle exec rake spree_auth:install:migrations

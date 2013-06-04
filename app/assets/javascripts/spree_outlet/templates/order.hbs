@@ -1,0 +1,41 @@
+<h3> Order {{number}}</h3>
+
+<hr>
+<h5> Shipping Address </h5>
+{{#with shipAddress}}
+  {{template "address"}}
+{{/with}}
+<h5> Billing Address </h5>
+{{#with billAddress}}
+  {{template "address"}}
+{{/with}}
+<h5> Shipments </h5>
+
+<h5> Items </h5>
+<table class="table ">
+  <thead>
+    <th> ITEM </th>
+    <th> PRICE </th>
+    <th> QTY </th>
+    <th> TOTAL </th>
+  </thead>
+  <tbody>
+    {{#each item in lineItems}}
+    <tr>
+      <td>{{item.name}} </td>
+      <td>{{item.price}}</td>
+      <td>{{item.quantity}}</td>
+      <td>{{item.total}}</td>
+    </tr>
+    {{/each}}
+    <hr>
+    {{#each adjustment in adjustments}}
+    <tr>
+      <td></td>
+      <td></td>
+      <td>{{adjustment.label}} </td>
+      <td>{{adjustment.amount}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

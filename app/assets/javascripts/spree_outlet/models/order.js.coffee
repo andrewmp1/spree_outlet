@@ -38,6 +38,11 @@ App.Order = Ember.Model.extend(
   special_instructions: attr()
   token: attr()
 
+  order_date: Ember.computed ->
+    date = @get('completed_at') || @get('created_at')
+    date
+  .property('completed_at', 'created_at')
+
   payments: Ember.computed ->
     payments = @get('data.payments')
     if payments
@@ -79,9 +84,11 @@ App.Order = Ember.Model.extend(
   adjustments: Ember.computed ->
     adjustments = @get('data.adjustments')
     if adjustments
-      adjustemnts.map( (item) ->
+      adjustments.map( (item) ->
         App.Adjustment.create(item)
       )
+    else
+      Ember.A()
   .property('data.adjustments')
 
   accessToken: ->

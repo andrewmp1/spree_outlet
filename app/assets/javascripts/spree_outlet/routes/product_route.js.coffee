@@ -4,7 +4,4 @@ App.ProductRoute = Ember.Route.extend(
 
   serialize: (model) ->
     permalink: model.get('permalink')
-
-  renderTemplate: ->
-    @render('product/index')
 )

@@ -10,6 +10,7 @@ App.Router.map ->
     @resource('product', path: '/:permalink')
   )
   @resource('account')
+  @resource('order', path: '/orders/:number')
   @resource('cart')
   @resource('checkout', ->
     @route('index')

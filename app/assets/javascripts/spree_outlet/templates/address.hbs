@@ -1,9 +1,6 @@
-{{input value=firstname}}
-{{input value=lastname}}
-{{input value=address1}}
-{{input value=address2}}
-{{input value=city}}
-{{input value=country}}
-{{input value=state}}
-{{input value=zipcode}}
-{{input value=phone}}
+<address>
+  <strong>{{firstName}}, {{lastName}}</strong><br>
+  {{address1}} {{#if address2}}, {{address2}} {{/if}}<br>
+  {{city}}, {{state_id}} {{zipcode}}<br>
+  <abbr title="Phone">P:</abbr> {{phone}}
+</address>

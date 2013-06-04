@@ -12,7 +12,7 @@ App.CartController = Ember.ObjectController.extend(
 
   empty: ->
     # Hit the api to empty items in the order?
-    #@get('model').empty()
+    @get('model').empty()
     @set('model', null)
 
   # checkout event
