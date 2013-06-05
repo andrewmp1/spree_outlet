@@ -13,13 +13,10 @@ exports.App = Em.Application.create(
 )
 
 App.ready = ->
-  # FIXME: user & current_order dumped into DOM.
-  user = window.user || undefined
-  Spree = window.Spree || {}
-  order = window.order || undefined
-  if user
-    App.set('currentUser', Ember.Object.create(user) )
-  if Spree.api_key
-    App.set('token', Spree.api_key)
-  if order
-    App.__container__.lookup('controller:cart').set('model', App.Order.create(order))
+  PRELOAD = (window.PRELOAD || {})
+  if PRELOAD.user
+    App.set('currentUser', Ember.Object.create(PRELOAD.user) )
+  if PRELOAD.api_key
+    App.set('token', PRELOAD.api_key)
+  if PRELOAD.cart
+    App.__container__.lookup('controller:cart').set('model', App.Order.create(PRELOAD.cart))
