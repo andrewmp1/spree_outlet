@@ -52,6 +52,26 @@ Add spree_outlet mount point to routes.rb.  Example:
 
 - "mount SpreeOutlet::Engine, :at => '/outlet/' "
 
+# Testing
+
+  tests are in qunit
+     -  test/javascripts/spree_outlet
+
+  run rake teabag
+
+  #TODO
+  Fix running tests via dummy app in browser.
+
+# Contributing
+
+Please contribute.  Submit a pull request by following the instructions below!
+
+1. Fork it
+2. Create your feature branch (git checkout -b my-new-feature)
+3. Commit your changes (git commit -am 'Added some feature')
+4. Push to the branch (git push origin my-new-feature)
+5. Create new Pull Request
+
 # License
 
 This project rocks and uses MIT-LICENSE.
