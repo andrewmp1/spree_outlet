@@ -265,7 +265,6 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails
   jquery-rails
-  poltergeist
   rspec-rails
   spree_outlet!
   sqlite3
