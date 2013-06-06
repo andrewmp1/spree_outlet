@@ -1,4 +1,4 @@
-require "spree_outlet/handlebars/template"
+require File.expand_path('../handlebars/template.rb',  __FILE__)
 
 module SpreeOutlet
   class Engine < ::Rails::Engine
