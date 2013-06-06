@@ -10,11 +10,5 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
-//= require jquery_ujs
-//= require spree_outlet/support/handlebars
-//= rqeuire spree_outlet/support/jquery.payment
-//= require spree_outlet/support/bootstrap.js
-//= require spree_outlet/support/ember
-//= require spree_outlet/support/ember-model
+//= require spree_outlet/lib
 //= require spree_outlet/app_config

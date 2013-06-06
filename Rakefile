@@ -38,3 +38,24 @@ end
 
 
 task :default => :test
+
+desc "Run the javascript specs"
+task :teabag => "app:teabag"
+
+namespace :teabag do
+  desc "Builds Teabag into the distribution ready bundle"
+  task :build => "build:javascripts"
+
+  namespace :build do
+
+    desc "Compile coffeescripts into javacripts"
+    task :javascripts => :environment do
+      env = Rails.application.assets
+
+      %w(spree_outlet).each do |path|
+        asset = env.find_asset(path)
+        asset.write_to(Teabag::Engine.root.join("app/assets/javascripts/#{path.gsub(/\//, "-")}"))
+      end
+    end
+  end
+end
