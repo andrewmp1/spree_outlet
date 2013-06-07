@@ -3,12 +3,14 @@ App.CartController = Ember.ObjectController.extend(
   couponCode: null
   addItem: (variantId, quantity) ->
     model = @get('model')
+    promise = {}
     if !model
       # Define a method on order class to create w/ item
-      model = App.Order.createWithItem(variantId, quantity)
+      promise = model = App.Order.createWithItem(variantId, quantity)
       @set('model', model)
     else
-      model.addItem(variantId, quantity)
+      promise = model.addItem(variantId, quantity)
+    promise
 
   empty: ->
     # Hit the api to empty items in the order?
@@ -37,7 +39,7 @@ App.CartController = Ember.ObjectController.extend(
     order = @get('model')
     controller = @
     settings = 
-      url: "api/checkouts/#{@get('model.number')}"
+      url: "/api/checkouts/#{@get('model.number')}"
       type: "PUT"
     promise = Ember.$.ajax(settings)
     promise.then( (data) ->

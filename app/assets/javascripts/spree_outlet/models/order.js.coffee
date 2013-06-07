@@ -98,8 +98,8 @@ App.Order = Ember.Model.extend(
     accessToken = @accessToken()
     controller = @
     settings =
-      url: "/api/checkouts/#{@get('number')}"
-      type: "PUT"
+      url: "/api/orders/#{@get('number')}/line_items"
+      type: "POST"
       data:
         line_item:
           variant_id: variantId

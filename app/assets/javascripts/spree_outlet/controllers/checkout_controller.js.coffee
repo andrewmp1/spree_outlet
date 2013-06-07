@@ -31,8 +31,15 @@ App.CheckoutController = Ember.Controller.extend(
     url = "#{@get('baseURL')}order[payments_attributes][][payment_method_id]=#{paymentMethodId}"
     @sendData(url, null, "PUT")
 
-  confirm: () ->
+  confirm: ->
     @sendData("#{@get('baseURL')}", null, "PUT")
+
+  update: ->
+    order = @get('order')
+    state = order.get('state')
+    console.log("CALLING UPDATE " + state)
+    if state == 'address'
+      @address(order.get('shipAddress'), order.get('billAddress'))
 
   sendData: (url, params, type) ->
     controller = @

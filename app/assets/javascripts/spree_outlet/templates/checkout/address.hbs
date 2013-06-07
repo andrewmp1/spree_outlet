@@ -1,13 +1,15 @@
-<h5> Ship Address </h5>
-<div class="bill-address row">
-{{#with model.billAddress}}
-  {{template "address_form"}}
-{{/with}}
-</div>
+<div class="row">
+  <h5> Ship Address </h5>
+  <div class="bill-address row">
+  {{#with model.billAddress}}
+    {{template "address_form"}}
+  {{/with}}
+  </div>
 
-<h5> Bill Address </h5>
-<div class="ship-address row">
-{{#with model.shipAddress}}
-  {{template "address_form"}}
-{{/with}}
+  <h5> Bill Address </h5>
+  <div class="ship-address row">
+  {{#with model.shipAddress}}
+    {{template "address_form"}}
+  {{/with}}
+  </div>
 </div>
