@@ -3,7 +3,7 @@ App.LoginController = Ember.Controller.extend(
   password: null
   error: null
 
-  login: ->
+  authenticate: ->
     controller = @
     data = @getProperties('login', 'password')
     settings =
@@ -33,7 +33,7 @@ App.LoginController = Ember.Controller.extend(
 
   clearFields: ->
     @setProperties(
-      email: null
+      login: null
       password: null
       error: null
     )
