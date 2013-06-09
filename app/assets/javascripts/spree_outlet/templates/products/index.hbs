@@ -1,6 +1,6 @@
 <hr>
 <div class="row">
-  <div class="span3">
+  <div class="span4">
     {{#if controller.taxons}}
       {{#each taxonRoot in controller.taxons}}
         <ul>
@@ -12,12 +12,13 @@
       {{/each}}
     {{/if}}
   </div>
-  <div class="span9 products">
+  <div class="span8 products">
     <ul class="thumbnails">
       {{#each product in filtered}}
-        <li class="span3">
-          <p>{{product.description}}</p>
-          <img {{bindAttr data-src="product.primaryImage"}}>
+        <li class="span2">
+          {{#linkTo "product" product  classNames="thumbnail"}}
+            <img {{bindAttr src="product.mainImage.attachment_url" alt="product.name"}}>
+          {{/linkTo}}
           {{#linkTo "product" product}} {{product.name}} {{/linkTo}}
           <hr>
           {{product.price}}
