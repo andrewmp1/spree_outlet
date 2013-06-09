@@ -1,10 +1,15 @@
 App.ProductController = Ember.ObjectController.extend(
   needs: ['cart']
   quantity: 1
-  variant: Ember.computed ->
-    @get('model.masterVariant')
-  .property('model')
+  variantId: null
   addToCart: ->
     console.log("ADDING TO CART")
-    @get('controllers.cart').addItem(@get('variant.id'), @get('quantity') )
+    variantId = @get('variantId') || @get('model.master.id')
+    @get('controllers.cart').addItem(variantId, @get('quantity') )
+
+  clearFields: ->
+  	@setProperties(
+  		quantity: 1
+  		variant: null
+  	)
 )

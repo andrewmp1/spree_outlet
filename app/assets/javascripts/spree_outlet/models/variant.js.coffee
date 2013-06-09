@@ -17,11 +17,19 @@ App.Variant = Ember.Model.extend(
   cost_price: attr()
   permalink: attr()
   option_values: attr()
+  image: Ember.computed ->
+    images = @get('data.images')
+    if images
+      images.map( (item) ->
+        App.Image.create(item)
+      )
+    else
+      Ember.A()
+  .property('data.images')
 )
 
 App.Variant.reopenClass(
   url: "/api/variants"
   rootKey: null
   collectionKey: "variants"
-  adapter: Ember.RESTAdapter.create()
 )

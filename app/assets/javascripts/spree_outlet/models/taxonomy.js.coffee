@@ -20,7 +20,9 @@ App.Taxonomy = Ember.Model.extend(
     taxons = if taxons then taxons else @get('data.root.taxons')
     if !Ember.isEmpty(taxons)
       taxons.map( (item) ->
-        klass.constructor.create(item)
+        App.Taxon.create(item)
+        # App.Taxon.load(item.id, item)
+        # App.Taxon.find(item.id)
       )
     else
       []

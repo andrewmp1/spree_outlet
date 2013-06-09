@@ -1,13 +1,42 @@
-<h1> Product {{id}} </h1>
-<div class="product">
-  {{id}} </br>
-  {{name}} </br>
-  <button {{action addToCart}} class="btn large primary"> Add to Cart </button>
-  {{#linkTo "products"}}<button class="btn small"> Back </button>{{/linkTo}}
-  <ul>
-    <h5> Variants MasterId: {{masterVariant.id}}</h5>
-  {{#each variant in variants}}
-    {{variant.id}}
-  {{/each}}
-  </ul>
+<div class="product row">
+  <div class="span5">
+    <img {{bindAttr src="mainImage.attachment_url"}}>
+    {{#if properties}}
+      <h5> Properties: </h5>
+      <ul class="product-properties">
+      {{#each property in properties}}
+        <li>{{property.property_name}}  -  {{property.value}} </li>
+      {{/each}}
+      </ul>
+    {{/if}}
+  </div>
+  <div class="span7">
+    <h5> {{name}} </h5>
+    <hr>
+    <p> {{description}} </p>
+    <h6> PRICE </h6>
+    <span class="price"> {{price}} </span><br />
+    Quantity: {{view Ember.TextField type="number" valueBinding="quantity" name="quantity" class="span1"}}
+    <button {{action addToCart}} class="btn large primary"> Add to Cart </button> <br />
+    {{#if hasVariants}}
+    <h5> Variants </h5>
+    {{#view Ember.RadioButtonGroup name="variants" valueBinding="variant"}}
+      {{#each variant in controller.variants}}
+        <label>
+          {{view view.RadioButton valueBinding="variant.id"}}
+          {{variant.id}}
+        </label>
+      {{/each}}
+    {{/view}}
+    {{/if}}
+
+    {{#if taxons}}
+      <ul>
+        <h5> LOOKING FOR SIMILAR ITEMS </h5>
+        {{#each taxon in taxons}}
+          {{taxon}}
+        {{/each}}
+      </ul>
+    {{/if}}
+  </div>
 </div>

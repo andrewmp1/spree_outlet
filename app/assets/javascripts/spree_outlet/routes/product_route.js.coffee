@@ -4,4 +4,7 @@ App.ProductRoute = Ember.Route.extend(
 
   serialize: (model) ->
     permalink: model.get('permalink')
+
+  deactivate: ->
+  	@controllerFor('product').clearFields()
 )
