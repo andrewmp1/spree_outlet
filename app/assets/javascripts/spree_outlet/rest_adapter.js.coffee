@@ -9,7 +9,7 @@ App.ajax = (url, params, method) ->
     dataType: "json"
 
   if token
-    settings.headers = "X-Spree-Token": token
+    settings.headers = "X-SPREE-TOKEN": token
 
 
   if params
