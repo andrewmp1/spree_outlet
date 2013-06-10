@@ -1,31 +1,31 @@
 <hr>
-<div class="row">
-  <div class="span4">
-    {{#if controller.taxons}}
-      {{#each taxonRoot in controller.taxons}}
-        <ul>
-        <h5> Shop By {{taxonRoot.name}} </h5>
-          {{#each taxon in taxonRoot.taxons}}
-          <li> <a {{action filterProducts taxon}}> {{taxon.name}}</a></li>
-          {{/each}}
-         </ul>
-      {{/each}}
-    {{/if}}
+  <div class="row">
+    <div class="span4">
+      {{#if controller.taxons}}
+        {{#each taxonRoot in controller.taxons}}
+          <ul>
+          <h5> Shop By {{taxonRoot.name}} </h5>
+            {{#each taxon in taxonRoot.taxons}}
+            <li> <a {{action filterProducts taxon}}> {{taxon.name}}</a></li>
+            {{/each}}
+           </ul>
+        {{/each}}
+      {{/if}}
+    </div>
+    {{#view App.InfiniteScrollView class="span8 products"}}
+      <ul class="thumbnails">
+        {{#each product in filtered}}
+          <li class="span2">
+            {{#linkTo "product" product  classNames="thumbnail"}}
+              <img {{bindAttr src="product.mainImage.attachment_url" alt="product.name"}}>
+            {{/linkTo}}
+            {{#linkTo "product" product}} {{product.name}} {{/linkTo}}
+            <hr>
+            {{product.price}}
+          </li>
+        {{else}}
+          "No Match". <a {{action clearFilter}}> Clear Filter </a>
+        {{/each}}
+      </ul>
+    {{/view}}
   </div>
-  <div class="span8 products">
-    <ul class="thumbnails">
-      {{#each product in filtered}}
-        <li class="span2">
-          {{#linkTo "product" product  classNames="thumbnail"}}
-            <img {{bindAttr src="product.mainImage.attachment_url" alt="product.name"}}>
-          {{/linkTo}}
-          {{#linkTo "product" product}} {{product.name}} {{/linkTo}}
-          <hr>
-          {{product.price}}
-        </li>
-      {{else}}
-        "No Match". <a {{action clearFilter}}> Clear Filter </a>
-      {{/each}}
-    </ul>
-  </div>
-</div>
