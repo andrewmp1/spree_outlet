@@ -1,3 +1,9 @@
 <h3> Delivery </h3>
 
-Delivery step
+Delivery step: (Rates)
+{{#each shipment in order.shipments}}
+	Shipment: {{shipment.id}}
+	{{#each rate in shipment.shipping_rates}}
+		Shipping Rate: {{rate.cost}}
+	{{/each}}
+{{/each}}

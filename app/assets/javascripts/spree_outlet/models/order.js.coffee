@@ -7,8 +7,8 @@ window.billAddress =
   "city": "Bethesda"
   "phone": "3014445002"
   "zipcode": "20814"
-  "state_id": 1
-  "country_id": 1
+  "state_id": 49
+  "country_id": 49
 
 window.shipAddress =
   "firstname": "John"
@@ -17,8 +17,8 @@ window.shipAddress =
   "city": "Bethesda"
   "phone": "3014445002"
   "zipcode": "20814"
-  "state_id": 1
-  "country_id": 1
+  "state_id": 49
+  "country_id": 49
 
 App.Order = Ember.Model.extend(
   id: attr()
@@ -57,7 +57,7 @@ App.Order = Ember.Model.extend(
     shipments = @get('data.shipments')
     if shipments
       shipments.map( (item) ->
-        App.Shipment.create(item)
+        App.Shipment.createRecord(item)
       )
   .property('data.shipments')
 
