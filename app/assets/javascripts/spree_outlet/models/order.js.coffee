@@ -94,21 +94,22 @@ App.Order = Ember.Model.extend(
   accessToken: ->
     App.get('token') || @get('token')
 
+  # This could be changed to add multiple items at once.
   addItem: (variantId, quantity) ->
-    accessToken = @accessToken()
-    controller = @
-    settings =
-      url: "/api/orders/#{@get('number')}/line_items"
-      type: "POST"
-      data:
-        line_item:
+    model = @
+    data = 
+      order:
+        line_items_attributes: [
           variant_id: variantId
           quantity: quantity
-    # if accessToken
-    #   settings.url = settings.url + "?token=#{accessToken}"
-    Ember.$.ajax(settings).then((data) ->
+        ]
+
+    App.ajax("/api/orders/#{@get('number')}", data, "PUT")
+    .then( (data) ->
       if data.line_items
-        controller.set('data.line_items', data.line_items)
+        model.set('data.line_items', data.line_items)
+      if data.state
+        model.set('state', data.state)
     )
 
   empty: ->

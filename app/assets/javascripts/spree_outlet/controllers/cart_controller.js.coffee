@@ -7,10 +7,14 @@ App.CartController = Ember.ObjectController.extend(
     if !model
       # Define a method on order class to create w/ item
       promise = model = App.Order.createWithItem(variantId, quantity)
+      # Need to handle failure on create.
       @set('model', model)
     else
       promise = model.addItem(variantId, quantity)
     promise
+
+  applyCoupon: ->
+    
 
   empty: ->
     # Hit the api to empty items in the order?
