@@ -17,7 +17,7 @@
       {{#each product in filtered}}
         <li class="span2">
           {{#linkTo "product" product  classNames="thumbnail"}}
-            <img {{bindAttr src="product.mainImage.attachment_url" alt="product.name"}}>
+            <img {{bindAttr src="product.mainImage.product_url" alt="product.name"}}>
           {{/linkTo}}
           {{#linkTo "product" product}} {{product.name}} {{/linkTo}}
           <hr>
