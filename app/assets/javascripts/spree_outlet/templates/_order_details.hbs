@@ -1,0 +1,16 @@
+<table class="table table-striped">
+  <tr>
+    <th> Item </th>
+    <th> Price </th>
+    <th> Quantity </th>
+    <th> Total </th>
+  </tr>
+  {{#each item in model.lineItems}}
+  <tr>
+    <td> {{item.variant.name}} </td>
+    <td> {{item.price}} </td>
+    <td> {{item.quantity}} </td>
+    <td> {{item.total}} </td>
+  </tr>
+  {{/each}}
+</table>

@@ -6,7 +6,16 @@
   <li>{{#linkTo "checkout.confirm"}}COMPLETE{{/linkTo}} </li>
 </ol>
 <div class="checkout">
+  {{#if error}}
+    <div class="alert alert-block">
+      <h4> An Error occured </h4>
+      <p>{{error}}</p>
+    </div>
+  {{/if}}
   {{outlet}}
 </div>
-
-<button class="btn primary" {{action update}}> Save & Continue </button>
+{{#if isConfirm}}
+  <button class="btn primary" {{action update}}> Place Order </button>
+{{else}}
+  <button class="btn primary" {{action update}}> Save & Continue </button>
+{{/if}}

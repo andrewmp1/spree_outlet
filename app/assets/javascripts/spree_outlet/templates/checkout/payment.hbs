@@ -1,1 +1,14 @@
 <h3> Payment </h3>
+<h6> Payment Methods </h6>
+{{#view Ember.RadioButtonGroup name="paymentMethods" valueBinding="paymentMethod"}}
+  {{#each method in controller.paymentMethods}}
+    <label>
+      {{view view.RadioButton valueBinding="method.id"}}
+      {{method.description}}
+    </label>
+  {{/each}}
+{{/view}}
+
+{{#if isCreditCard}}
+  {{partial 'credit_card_form'}}
+{{/if}}

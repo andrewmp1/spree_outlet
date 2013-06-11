@@ -2,12 +2,13 @@ attr = Ember.attr
 
 App.Address = Ember.Model.extend(
   id: attr()
-  first_name: attr()
-  last_name: attr()
+  firstname: attr()
+  lastname: attr()
   address1: attr()
   address2: attr()
   city: attr()
   state_id: attr()
+  zipcode: attr()
   country_id: attr()
   phone: attr()
 )
