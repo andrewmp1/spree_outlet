@@ -10,6 +10,7 @@
 //= require ./router
 //= require_tree ./mixins
 //= require_tree ./controls
+//= require_tree ./initializers
 //= require_tree ./models
 //= require_tree ./controllers
 //= require_tree ./helpers
