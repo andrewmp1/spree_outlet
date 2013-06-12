@@ -1,18 +1,20 @@
 App.CheckoutRoute = Ember.Route.extend(
   events:
     update: ->
-      controller = @controllerFor('checkout')
-      order = controller.get('order')
+      checkout = @controllerFor('checkout')
+      order = checkout.get('order')
       state = order.get('state')
       if state == 'address'
-        controller.address()
+        checkout.address()
       if state == 'delivery'
-        controller.delivery(3, 7)
+        checkout.delivery(3, 7)
       if state == 'payment'
-        paymentController = @controllerFor('checkoutPayment')
-        paymentController.payment(1,1)
+        payment = @controllerFor('checkoutPayment')
+        paymentMethodId = payment.get('paymentMethod')
+        checkout.payment(paymentMethodId,1)
       if state == 'confirm'
-        controller.confirm()
+        checkout.confirm()
+
     next: (state) ->
       # Should also check for complete
       state = state || @controllerFor('cart').get('order.state')
@@ -21,7 +23,7 @@ App.CheckoutRoute = Ember.Route.extend(
   # Not ready to checkout
   redirect: ->
     order = @controllerFor('cart').get('model')
-    console.log(order.get('checkoutAllowed'))
+
     if !order or !order.get('checkoutAllowed')
       console.log("REDIRECTING TO CART")
       @transitionTo('cart')

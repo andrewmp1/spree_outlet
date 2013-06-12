@@ -23,8 +23,8 @@ App.CheckoutController = Ember.Controller.extend(
       billAddress = shipAddress
     data = 
       order:
-        bill_address_attributes: billAddress
-        ship_address_attributes: shipAddress
+        bill_address_attributes: window.billAddress
+        ship_address_attributes: window.shipAddress
 
     @sendData("#{@get('baseURL')}", data, "PUT")
     .then((data) ->
@@ -49,7 +49,7 @@ App.CheckoutController = Ember.Controller.extend(
       controller.send('next', data.state)
     )
 
-  payment: (payment, paymentMethodId) ->
+  payment: (paymentMethodId) ->
     controller = @
     data =
       order:

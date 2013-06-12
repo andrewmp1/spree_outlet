@@ -19,6 +19,7 @@ App.Router.map ->
     @route('delivery')
     @route('payment')
     @route('confirm')
+    @route('complete')
   )
   @route('login')
   @route('signup')

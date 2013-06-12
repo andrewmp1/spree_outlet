@@ -11,4 +11,3 @@ exports.App = Em.Application.create(
   # Logs when ember creates classes for you(route,controller)
   LOG_ACTIVE_GENERATION: true
 )
-
