@@ -1,0 +1,6 @@
+{{#if model.message}}
+	<div id="flash-container" {{bindAttr class=":alert alertClass"}}>
+	  <button type="button" class="close" {{action clear}}>&times;</button>
+	  {{model.message}}
+	</div>
+{{/if}}
