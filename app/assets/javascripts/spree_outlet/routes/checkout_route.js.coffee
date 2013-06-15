@@ -14,11 +14,18 @@ App.CheckoutRoute = Ember.Route.extend(
         checkout.payment(paymentMethodId,1)
       if state == 'confirm'
         checkout.confirm()
+      if state == 'complete'
+        @transitionTo('products')
 
     next: (state) ->
       # Should also check for complete
-      state = state || @controllerFor('cart').get('order.state')
-      @transitionTo("checkout.#{state}")
+      cart = @controllerFor('cart')
+      state = state || cart.get('order.state')
+      if state == 'complete'
+        cart.set('model', null)
+        @transitionTo('products')
+      else
+        @transitionTo("checkout.#{state}")
 
   # Not ready to checkout
   redirect: ->

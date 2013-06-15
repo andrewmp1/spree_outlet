@@ -8,9 +8,20 @@
   {{#each item in model.lineItems}}
   <tr>
     <td> {{item.variant.name}} </td>
-    <td> {{item.price}} </td>
+    <td> {{money item.price}} </td>
     <td> {{item.quantity}} </td>
-    <td> {{item.total}} </td>
+    <td> {{money item.total}} </td>
   </tr>
   {{/each}}
+</table>
+<table class="table table-striped">
+<tr>
+  <th> ORDER ADJUSTMENTS </th>
+</tr>
+{{#each adjustment in model.adjustments}}
+<tr>
+<td>{{adjustment.label}}</td>
+<td>{{money adjustment.amount}}</td>
+</tr>
+{{/each}}
 </table>

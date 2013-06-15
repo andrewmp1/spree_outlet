@@ -3,17 +3,25 @@ App.CartController = Ember.ObjectController.extend(
   couponCode: null
   addItem: (variantId, quantity) ->
     model = @get('model')
-    promise = {}
     if !model
       # Define a method on order class to create w/ item
-      promise = model = App.Order.createWithItem(variantId, quantity)
-      # Need to handle failure on create.
+      model = App.Order.createWithItem(variantId, quantity)
+      # Need to handle failure on creating new item.
       @set('model', model)
+      model
     else
-      promise = model.addItem(variantId, quantity)
-    promise
+      model.addItem(variantId, quantity)
 
-  applyCoupon: ->
+  applyCoupon: (coupon)->
+    coupon = coupon || @get('couponCode')
+    console.log("COUPON #{coupon}")
+    if coupon
+      order = @get('model')
+      data =
+        order:
+          coupon_code: "#{coupon}"
+      @updateOrder(data)
+
     
 
   empty: ->
@@ -28,8 +36,8 @@ App.CartController = Ember.ObjectController.extend(
       @transitionToRoute('checkout')
     else
       controller = @
-      promise = @updateOrder()
-      promise.then( ->
+      @updateOrder()
+      .then( ->
         controller.transitionToRoute('checkout')
       )
     
@@ -39,15 +47,14 @@ App.CartController = Ember.ObjectController.extend(
       couponCode: null
     )
 
-  updateOrder: ->
+  updateOrder: (data) ->
+    data = data || null
     order = @get('model')
-    controller = @
-    settings = 
-      url: "/api/checkouts/#{@get('model.number')}"
-      type: "PUT"
-    promise = Ember.$.ajax(settings)
-    promise.then( (data) ->
-      order.set('state', data.state)
+    url = "/api/orders/#{@get('model.number')}"
+    App.ajax(url, data, "PUT")
+    .then( (data) ->
+      order.set('model.state', data.state)
+      data
     )
 
 )

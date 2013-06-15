@@ -38,6 +38,17 @@ App.Order = Ember.Model.extend(
   special_instructions: attr()
   token: attr()
 
+  calculatedTotal: Ember.computed ->
+    lineItems = @get('lineItems') || []
+    lineItemsTotal = lineItems.mapProperty('total').reduce((a,b) ->
+      parseFloat(a) + parseFloat(b)
+    , 0)
+    if lineItems && @get('item_total') != lineItemsTotal
+      parseFloat(parseFloat(@get('adjustment_total')) + lineItemsTotal).toFixed(2)
+    else
+      @get('total')
+  .property('total', 'adjustment_total', 'lineItems.@each', 'item_total')
+
   order_date: Ember.computed ->
     date = @get('completed_at') || @get('created_at')
     date
@@ -106,17 +117,15 @@ App.Order = Ember.Model.extend(
 
     App.ajax("/api/orders/#{@get('number')}", data, "PUT")
     .then( (data) ->
-      if data.line_items
-        model.set('data.line_items', data.line_items)
-      if data.state
-        model.set('state', data.state)
+      model.load(data.number, data)
     )
 
   empty: ->
-    settings =
-      url: "/api/orders/#{@get('number')}/empty"
-      type: "PUT"
-    Ember.$.ajax(settings)
+    model = @
+    App.ajax("/api/orders/#{@get('number')}/empty", null, "PUT")
+    .then( (data) ->
+      model.load(model.get('number'), {})
+    )
 
   taxTotal: Ember.computed ->
     adjustments = @get('adjustments')
@@ -165,13 +174,10 @@ App.Order.reopenClass(
   collectionKey: "orders"
   createWithItem: (variantId, quantity) ->
     record = @.create()
-    settings =
-      url: "/api/orders.json?order[line_items][0][variant_id]=#{variantId}&order[line_items][0][quantity]=#{quantity}"
-      type: "POST"
-    Ember.$.ajax(settings).then((json) ->
-      record.load(json.id, json)
+    url = "/api/orders.json?order[line_items][0][variant_id]=#{variantId}&order[line_items][0][quantity]=#{quantity}"
+    App.ajax(url, null, "POST")
+    .then((json) ->
+      record.load(json.number, json)
     )
     record
-
-
 )

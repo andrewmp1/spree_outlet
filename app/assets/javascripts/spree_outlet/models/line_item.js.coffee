@@ -6,7 +6,7 @@ App.LineItem = Ember.Model.extend(
   quantity: attr()
   variant_id: attr()
   total: Ember.computed ->
-    @get('quantity')*@get('price')
+    parseFloat(@get('quantity')*@get('price')).toFixed(2)
   .property('quantity', 'price')
   variant: Ember.computed ->
     if arguments.length == 2

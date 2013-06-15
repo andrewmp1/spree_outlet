@@ -3,7 +3,8 @@
   {{partial "order_details"}}
   <hr>
   <button {{action empty}} class="btn"> Empty Cart </button> or {{#linkTo "products"}}<button class="btn"> Continue Shopping </button> {{/linkTo}} <br />
-  {{input value=couponCode}} <button {{action update}} class="btn"> Update </button> <button class="btn" {{action checkout}}> Checkout </button>
+  <label> Add Coupon </label>
+  {{input value=couponCode}} <button {{action applyCoupon couponCode}} class="btn"> Update </button> <button class="btn" {{action checkout}}> Checkout </button>
   <hr>
 {{else}}
   You have nothing in your cart.  Add some cool stuff. {{#linkTo "products"}}<button class="btn"> Continue Shopping </button> {{/linkTo}} <br />

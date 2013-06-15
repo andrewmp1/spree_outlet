@@ -3,9 +3,16 @@ App.ProductController = Ember.ObjectController.extend(
   quantity: 1
   variantId: null
   addToCart: ->
-    console.log("ADDING TO CART")
+    controller = @
     variantId = @get('variantId') || @get('model.master.id')
-    @get('controllers.cart').addItem(variantId, @get('quantity') )
+    promise = @get('controllers.cart').addItem(variantId, @get('quantity') )
+    promise.then( ->
+      alert = App.Alert.create(type: "success", message: "Added item to cart: #{controller.get('model.name')}")
+      controller.send('flash', alert)
+    , ->
+      alert = App.Alert.create(type: "error", message: 'Woops an error occured')
+      controller.send('flash', alert)
+    )
 
   clearFields: ->
   	@setProperties(

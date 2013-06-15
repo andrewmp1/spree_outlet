@@ -1,18 +1,23 @@
 <div class="navbar">
-  <div class="navbar-inner">
-    <div class="container span12">
-      <a class="brand" href="#"><h1> Spree Outlet </h1></a>
-      <ul class="nav">
-      {{#if App.currentUser}}
-        Welcome, {{App.currentUser.email}} {{#linkTo "account"}} Account {{/linkTo}} | 
-        {{#linkTo "logout"}} Log out {{/linkTo}}
-      {{else}}
-        <li>{{#linkTo "login"}} Log In {{/linkTo}}</li>
-      {{/if}}
-      </ul>
+    <div class="navbar-inner">
+      <div class="span12">
+        <a class="brand" href="#"><h1> Spree Outlet </h1></a>
+        <ul class="nav">
+        {{#if App.currentUser}}
+          {{#linkTo "account"}} Account {{/linkTo}} | 
+          {{#linkTo "logout"}} Log out {{/linkTo}}
+        {{else}}
+          {{#linkTo "login"}} Log In {{/linkTo}}
+        {{/if}}
+        </ul>
+      </div>
     </div>
   </div>
-</div>
-<div>
-  {{#if cart.model}} {{#linkTo "cart"}} <b> Cart </b> {{/linkTo}} {{/if}}
+<div class="container">
+  <div class="span2">
+    {{#linkTo "products"}}HOME{{/linkTo}}
+  </div>
+  <div class="span2 pull-right">
+    <i class="icon-shopping-cart"></i>{{#if cart.model.lineItems}} {{#linkTo "cart"}} <b> Cart ({{cart.model.lineItems.length}}) | {{money cart.model.calculatedTotal}}</b> {{/linkTo}} {{else}} <a href="#"><b> Cart | Empty <b></a> {{/if}}
+  </div>
 </div>
