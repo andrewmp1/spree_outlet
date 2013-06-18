@@ -10,7 +10,7 @@ App.Country = Ember.Model.extend(
 )
 
 App.Country.reopenClass(
-  url: "/api/countries"
+  url: "#{App.get('apiURL')}/countries"
   rootKey: null
   collectionKey: "countries"
 )

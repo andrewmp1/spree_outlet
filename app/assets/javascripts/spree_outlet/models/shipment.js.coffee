@@ -28,7 +28,7 @@ App.Shipment = Ember.Model.extend(
 )
 
 App.Shipment.reopenClass(
-	url: "/api/shipments"
+	url: "#{App.get('apiURL')}/shipments"
 	rootKey: null
 	collectionKey: "shipments"
 )

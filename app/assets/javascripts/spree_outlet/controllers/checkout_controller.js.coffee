@@ -7,7 +7,7 @@ App.CheckoutController = Ember.Controller.extend(
   error: null # String response for errors. Use for flash message
   errors: null # array of error messages, validations, etc.
   baseURL: Ember.computed ->
-    "/api/checkouts/#{@get('order.number')}"
+    "#{App.get('apiURL')}/checkouts/#{@get('order.number')}"
   .property('order.number')
 
   isConfirm: Ember.computed ->

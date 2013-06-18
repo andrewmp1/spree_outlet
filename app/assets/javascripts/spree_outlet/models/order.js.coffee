@@ -1,25 +1,5 @@
 attr = Ember.attr
 
-window.billAddress =
-  "firstname": "John"
-  "lastname": "Doe"
-  "address1": "7735 Old Georgetown Road"
-  "city": "Bethesda"
-  "phone": "3014445002"
-  "zipcode": "20814"
-  "state_id": 49
-  "country_id": 49
-
-window.shipAddress =
-  "firstname": "John"
-  "lastname": "Doe"
-  "address1": "7735 Old Georgetown Road"
-  "city": "Bethesda"
-  "phone": "3014445002"
-  "zipcode": "20814"
-  "state_id": 49
-  "country_id": 49
-
 App.Order = Ember.Model.extend(
   id: attr()
   number: attr()
@@ -109,7 +89,7 @@ App.Order = Ember.Model.extend(
   addItem: (variantId, quantity) ->
     model = @
     token = @get('token')
-    url = "/api/orders/#{@get('number')}"
+    url = "#{@.constructor.url}/#{@get('number')}"
     if token
       url = url + "?order_token=#{token}"
     data = 
@@ -126,7 +106,7 @@ App.Order = Ember.Model.extend(
 
   empty: ->
     model = @
-    App.ajax("/api/orders/#{@get('number')}/empty", null, "PUT")
+    App.ajax("#{@.constructor.url}/#{@get('number')}/empty", null, "PUT")
     .then( (data) ->
       model.load(model.get('number'), {})
     )
@@ -173,12 +153,12 @@ App.Order = Ember.Model.extend(
 )
 
 App.Order.reopenClass(
-  url: "/api/orders"
+  url: "#{App.get('apiURL')}/orders"
   rootKey: null
   collectionKey: "orders"
   createWithItem: (variantId, quantity) ->
     record = @.create()
-    url = "/api/orders.json?order[line_items][0][variant_id]=#{variantId}&order[line_items][0][quantity]=#{quantity}"
+    url = "#{@url}?order[line_items][0][variant_id]=#{variantId}&order[line_items][0][quantity]=#{quantity}"
     App.ajax(url, null, "POST")
     .then((json) ->
       record.load(json.number, json)

@@ -29,7 +29,7 @@ App.Variant = Ember.Model.extend(
 )
 
 App.Variant.reopenClass(
-  url: "/api/variants"
+  url: "#{App.get('apiURL')}/variants"
   rootKey: null
   collectionKey: "variants"
 )

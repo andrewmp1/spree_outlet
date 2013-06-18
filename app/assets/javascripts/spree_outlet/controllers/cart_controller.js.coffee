@@ -50,7 +50,7 @@ App.CartController = Ember.ObjectController.extend(
   updateOrder: (data) ->
     data = data || null
     order = @get('model')
-    url = "/api/orders/#{@get('model.number')}"
+    url = "#{order.constructor.url}/#{@get('model.number')}"
     App.ajax(url, data, "PUT")
     .then( (data) ->
       order.set('model.state', data.state)

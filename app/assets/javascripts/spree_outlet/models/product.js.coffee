@@ -49,7 +49,7 @@ App.Product = Ember.Model.extend(
 )
 
 App.Product.reopenClass(
-  url: "/api/products"
+  url: "#{App.get('apiURL')}/products"
   rootKey: null
   collectionKey: "products"
 )

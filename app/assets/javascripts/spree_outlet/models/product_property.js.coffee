@@ -9,7 +9,7 @@ App.ProductProperty = Ember.Model.extend(
 )
 
 App.ProductProperty.reopenClass(
-	url: "/api/product_properties"
+	url: "#{App.get('apiURL')}/product_properties"
 	rootKey: null
 	collectionKey: "product_properties"
 )

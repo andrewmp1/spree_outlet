@@ -30,7 +30,7 @@ App.Taxonomy = Ember.Model.extend(
 )
 
 App.Taxonomy.reopenClass(
-  url: "/api/taxonomies"
+  url: "#{App.get('apiURL')}/taxonomies"
   rootKey: null
   collectionKey: "taxonomies"
 )

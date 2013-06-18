@@ -6,7 +6,7 @@ App.User = Ember.Model.extend(
 )
 
 App.User.reopenClass(
-  url: "/api/users"
+  url: "#{App.get('apiURL')}/users"
   rootKey: null
   collectionKey: 'users'
 )
