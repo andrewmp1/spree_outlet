@@ -108,6 +108,10 @@ App.Order = Ember.Model.extend(
   # This could be changed to add multiple items at once.
   addItem: (variantId, quantity) ->
     model = @
+    token = @get('token')
+    url = "/api/orders/#{@get('number')}"
+    if token
+      url = url + "?order_token=#{token}"
     data = 
       order:
         line_items_attributes: [
@@ -115,7 +119,7 @@ App.Order = Ember.Model.extend(
           quantity: quantity
         ]
 
-    App.ajax("/api/orders/#{@get('number')}", data, "PUT")
+    App.ajax(url, data, "PUT")
     .then( (data) ->
       model.load(data.number, data)
     )
